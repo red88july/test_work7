@@ -1,9 +1,12 @@
+import Orders from "./Orders/Orders";
+import {Order} from "./types";
 import Buttons from './Buttons/Buttons';
 import {Food} from "./types";
+import imageDelete from './assets/delete.png';
 import imageCup from './assets/cup.png';
 import imageForkKnife from './assets/forkKnife.png';
 import './App.css';
-
+import {useState} from "react";
 
 function App() {
 
@@ -16,12 +19,48 @@ function App() {
         {id:6, name: 'Cola', price: 40, image:  imageCup},
     ];
 
-  return (
+    const [order, setOrder] = useState<Order []>([
+        {id:1, name: 'Hamburger', price: 80, count: 0, image: imageDelete},
+        {id:2, name: 'Cheeseburger', price: 90, count: 0, image: imageDelete},
+        {id:3, name: 'Fries', price: 45, count: 0, image: imageDelete},
+        {id:4, name: 'Coffee', price: 70, count: 0, image: imageDelete},
+        {id:5, name: 'Tea', price: 50, count: 0, image: imageDelete},
+        {id:6, name: 'Cola', price: 40, count: 0, image: imageDelete},
+    ]);
+
+    const setParametrsOrder = (index: number) => {
+        const orderCopy = { ...order[index] };
+        orderCopy.count++;
+        orderCopy.price *= 2;
+        const orderCopyElements = [...order];
+        orderCopyElements[index] = orderCopy;
+        setOrder(orderCopyElements);
+    };
+
+
+    return (
     <>
         <div className="main-box">
             <div className="item-order">
                 <span>Order Details</span>
+                <div className="orders-empty-menu">
+                    <span className="text-order">Order is empty!</span>
+                    <span className="text-order">Please add some items.</span>
+                </div>
 
+                {order.map((order, index) => (
+                    <Orders key={index}
+                    id={order.id}
+                    name={order.name}
+                    price={order.price}
+                    count={order.count}
+                    image={order.image}/>
+                ))}
+
+
+                <div className="price-item">
+                    <span className="order-total-pirce">Total price: </span>
+                </div>
             </div>
 
             <div className="add-items">

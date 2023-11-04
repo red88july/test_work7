@@ -1,0 +1,19 @@
+.orders-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-btn {
+    border: 1px solid #000000;
+    border-radius: 50%;
+}
+
+.delete-btn:hover{
+    outline: 2px solid #000000;
+}
+
+.delete-img {
+    width: 25px;
+    height: 25px;
+}

@@ -11,3 +11,11 @@ export interface Button {
     price: number,
     image: string,
 }
+
+export interface Order {
+    id: number,
+    name: string,
+    price: number,
+    count: number,
+    image: string,
+}
