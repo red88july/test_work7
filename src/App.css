@@ -14,13 +14,19 @@
 
 .item-order,
 .add-items {
-  border: 1px solid #808080;
+  border: 2px solid #808080;
   border-radius: 10px;
 }
 
-.buttons-item {
+.buttons-container {
   display: flex;
+  margin: 10px;
   align-items: center;
-  align-content: space-between;
+  gap: 10px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
