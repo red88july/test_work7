@@ -20,22 +20,28 @@ function App() {
     ];
 
     const [order, setOrder] = useState<Order []>([
-        {id:1, name: 'Hamburger', price: 80, count: 0, image: imageDelete},
-        {id:2, name: 'Cheeseburger', price: 90, count: 0, image: imageDelete},
-        {id:3, name: 'Fries', price: 45, count: 0, image: imageDelete},
-        {id:4, name: 'Coffee', price: 70, count: 0, image: imageDelete},
-        {id:5, name: 'Tea', price: 50, count: 0, image: imageDelete},
-        {id:6, name: 'Cola', price: 40, count: 0, image: imageDelete},
+        {id:1, name: 'Hamburger', price: 0, count: 0, image: imageDelete},
+        {id:2, name: 'Cheeseburger', price: 0, count: 0, image: imageDelete},
+        {id:3, name: 'Fries', price: 0, count: 0, image: imageDelete},
+        {id:4, name: 'Coffee', price: 0, count: 0, image: imageDelete},
+        {id:5, name: 'Tea', price: 0, count: 0, image: imageDelete},
+        {id:6, name: 'Cola', price: 0, count: 0, image: imageDelete},
     ]);
 
+
     const setParametrsOrder = (index: number) => {
-        const orderCopy = { ...order[index] };
-        orderCopy.count++;
-        orderCopy.price *= 2;
-        const orderCopyElements = [...order];
-        orderCopyElements[index] = orderCopy;
-        setOrder(orderCopyElements);
+        const orderCopy = [...order];
+        orderCopy[index].count++;
+        const foodItem = FOOD.find((item) => item.id === orderCopy[index].id);
+        if (foodItem) {
+            orderCopy[index].price += foodItem.price;
+        }
+        setOrder(orderCopy);
     };
+
+  const total = order.reduce ((acc, currentPrice) => {
+      return acc + currentPrice.price;
+  }, 0);
 
 
     return (
@@ -47,7 +53,6 @@ function App() {
                     <span className="text-order">Order is empty!</span>
                     <span className="text-order">Please add some items.</span>
                 </div>
-
                 {order.map((order, index) => (
                     <Orders key={index}
                     id={order.id}
@@ -56,10 +61,8 @@ function App() {
                     count={order.count}
                     image={order.image}/>
                 ))}
-
-
                 <div className="price-item">
-                    <span className="order-total-pirce">Total price: </span>
+                    <span className="order-total-pirce">Total price: {total}</span>
                 </div>
             </div>
 
@@ -74,6 +77,7 @@ function App() {
                                 name={food.name}
                                 price={food.price}
                                 image={food.image}
+                                onClick={() => {setParametrsOrder(index);}}
                             />
                         ))}
                     </div>
@@ -85,6 +89,7 @@ function App() {
                                 name={food.name}
                                 price={food.price}
                                 image={food.image}
+                                onClick={() => {setParametrsOrder(index + 3);}}
                             />
                         ))}
                     </div>

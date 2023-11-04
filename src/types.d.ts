@@ -10,6 +10,7 @@ export interface Button {
     name: string,
     price: number,
     image: string,
+    onClick: () => void;
 }
 
 export interface Order {
