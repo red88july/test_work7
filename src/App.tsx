@@ -28,7 +28,6 @@ function App() {
         {id:6, name: 'Cola', price: 0, count: 0, image: imageDelete},
     ]);
 
-
     const setParametrsOrder = (index: number) => {
         const orderCopy = [...order];
         orderCopy[index].count++;
@@ -43,6 +42,15 @@ function App() {
       return acc + currentPrice.price;
   }, 0);
 
+    const setRemoveParametr = (index: number) => {
+        const orderCopyRemove = [...order];
+        orderCopyRemove[index].count--;
+        const removeItem = FOOD.find((item) => item.id === orderCopyRemove[index].id);
+        if (removeItem) {
+            orderCopyRemove[index].price -= removeItem.price;
+        }
+        setOrder(orderCopyRemove);
+    };
 
     return (
     <>
@@ -54,12 +62,15 @@ function App() {
                     <span className="text-order">Please add some items.</span>
                 </div>
                 {order.map((order, index) => (
-                    <Orders key={index}
-                    id={order.id}
-                    name={order.name}
-                    price={order.price}
-                    count={order.count}
-                    image={order.image}/>
+                    <Orders
+                        key={index}
+                        id={order.id}
+                        name={order.name}
+                        price={order.price}
+                        count={order.count}
+                        image={order.image}
+                        onClickDelete={() => setRemoveParametr(index)}
+                    />
                 ))}
                 <div className="price-item">
                     <span className="order-total-pirce">Total price: {total}</span>

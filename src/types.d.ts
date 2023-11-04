@@ -19,4 +19,5 @@ export interface Order {
     price: number,
     count: number,
     image: string,
+    onClickDelete: (index: number) => void;
 }
